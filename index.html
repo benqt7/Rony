@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رفيقة الدرب - رواية وفاء</title>
-    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=9cCbpUktawFoLDGoXVGe1KDKOR1gZzCGXKhlVjyshTbZjssI2h02-2CD5dYShG2ZVxOXewRpsM8EF1CJfAuylCwWD1FJEFWeUKcAI9PYi-0HXK-1rpm4brziJ60-QuOnzXRZ7N8oSIiHEf6FiI_XGM9Dmre7RAxvp8jJEdvnT3RCume1iKglKkjXf_qJVaD_kf8DuXQ7s0_6xaZk674x-3c0YD1Yn0IR0ht9QJr5eWGW_qkI509bybBxzecQJhyarPNFoNrlaSW2hceZNKJfAg" charset="UTF-8"></script><style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=tnbZ0JdBBqKUAI1utHkfPcHAxhg_l4cgUsiDetvWyJl-N2DlSRu_IdamOnPjme6olp6874-OLtjf_bDUJ12efbJSdu3HKuvOvF_X98Z3afn7U0LY9kPLCe8KFHt2eknPMEKYK7SmbOUkOZIjJxM5WgBZ6bKFBdnJjFlNYDBmeeI39D6khi7seCrqUfdpSXI_OWWqHFGGPDeFkh95RUO7MJZEXtozZ5SLt0aDDzxF9F1Jzu5L-RzrY2MkI6VgI2FRbdpbtAhTrZTgVCUF6wx7lw" charset="UTF-8"></script><style>
         /* الخطوط والألوان الأساسية */
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap');
 
         :root {
             --bg-dark: #121212; /* لون الظلام والتعب */
@@ -18,10 +20,10 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
+            min-height: 100%;
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden; /* منع التمرير الأفقي */
-            transition: background-color 2s ease, color 2s ease;
+            transition: background-color 0.6s ease, color 0.6s ease;
             background-color: var(--bg-dark);
             color: var(--text-dark);
         }
@@ -32,11 +34,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100svh;
+            min-height: 100dvh;
             text-align: center;
             padding: 20px;
             opacity: 1;
-            transition: opacity 1s ease;
+            transition: opacity 0.4s ease;
         }
 
         /* الجزء الأول: مقدمة الرواية (الظلام) */
@@ -47,8 +50,8 @@
             margin-bottom: 30px;
             font-family: 'Amiri', serif; /* خط كلاسيكي للرواية */
             opacity: 0;
-            animation: fadeIn 3s forwards;
-            animation-delay: 1s;
+            animation: fadeIn 0.9s forwards;
+            animation-delay: 0.2s;
         }
 
         @keyframes fadeIn {
@@ -79,13 +82,15 @@
         #full-content {
             display: none; /* مخفي في البداية */
             opacity: 0;
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 2000px;
             width: 100%;
             max-width: 900px;
             box-sizing: border-box;
             margin: 0 auto;
             padding: 50px 20px;
             text-align: right; /* تنسيق القراءة */
-            transition: opacity 2s ease;
+            transition: opacity 0.4s ease;
         }
 
         /* تنسيق الرواية الكاملة */
@@ -155,6 +160,15 @@
             border-bottom: 1px solid rgba(255,255,255,0.18);
         }
 
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
         /* تنسيق الهواتف */
         @media (max-width: 600px) {
             #main-container {
@@ -183,7 +197,7 @@
             <br>
             حتى ظننتُ أن لا ضياءَ بعدَ هذا الظلام.
         </div>
-        <button id="transform-btn" onclick="transformPage()">ابحث عن الضياء</button>
+        <button id="transform-btn" type="button" onclick="transformPage()">ابحث عن الضياء</button>
     </div>
 
     <div id="full-content">
@@ -340,24 +354,24 @@
     <script>
         function transformPage() {
             // 1. إخفاء حاوية البداية (الظلام)
-            document.getElementById('main-container').style.opacity = '0';
+            const main = document.getElementById('main-container');
+            const body = document.getElementById('body-tag');
+            const fullContent = document.getElementById('full-content');
+            main.style.opacity = '0';
             
-            setTimeout(function() {
-                document.getElementById('main-container').style.display = 'none';
-                
+            requestAnimationFrame(function() {
+                main.style.display = 'none';
+
                 // 2. إبقاء الخلفية الداكنة وتغيير لون النص فقط
-                document.getElementById('body-tag').classList.add('light-mode');
-                
+                body.classList.add('light-mode');
+
                 // 3. إظهار المحتوى الكامل بسلاسة
-                var fullContent = document.getElementById('full-content');
                 fullContent.style.display = 'block';
-                setTimeout(function() {
+                requestAnimationFrame(function() {
                     fullContent.style.opacity = '1';
-                    // تفعيل التمرير العمودي فقط عند عرض المحتوى
                     document.body.style.overflowY = 'auto';
-                }, 100);
-                
-            }, 1000); // الانتظار حتى يختفي الجزء الأول
+                });
+            });
         }
     </script>
 </body>
