@@ -4,61 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رفيقة الدرب - رواية وفاء</title>
+
+    <!-- ✅ تحميل الخطوط بـ link بدل @import لتجنب تأخير الرندر -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="https://ff.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=tnbZ0JdBBqKUAI1utHkfPcHAxhg_l4cgUsiDetvWyJl-N2DlSRu_IdamOnPjme6olp6874-OLtjf_bDUJ12efbJSdu3HKuvOvF_X98Z3afn7U0LY9kPLCe8KFHt2eknPMEKYK7SmbOUkOZIjJxM5WgBZ6bKFBdnJjFlNYDBmeeI39D6khi7seCrqUfdpSXI_OWWqHFGGPDeFkh95RUO7MJZEXtozZ5SLt0aDDzxF9F1Jzu5L-RzrY2MkI6VgI2FRbdpbtAhTrZTgVCUF6wx7lw" charset="UTF-8"></script><style>
-        /* الخطوط والألوان الأساسية */
 
+    <style>
         :root {
-            --bg-dark: #121212; /* لون الظلام والتعب */
+            --bg-dark: #121212;
             --text-dark: #e0e0e0;
             --text-light: #ffffff;
-            --accent: #d4af37; /* لون ذهبي للتميز */
+            --accent: #d4af37;
         }
 
+        /* ✅ إزالة transition من body لأنها تسبب ثقلًا عند التحميل */
         body, html {
             margin: 0;
             padding: 0;
-            min-height: 100%;
+            height: 100%;
             font-family: 'Cairo', sans-serif;
-            overflow-x: hidden; /* منع التمرير الأفقي */
-            transition: background-color 0.6s ease, color 0.6s ease;
+            overflow-x: hidden;
             background-color: var(--bg-dark);
             color: var(--text-dark);
         }
 
-        /* حاوية المحتوى الرئيسي */
         #main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100svh;
-            min-height: 100dvh;
+            min-height: 100vh;
             text-align: center;
             padding: 20px;
-            opacity: 1;
-            transition: opacity 0.4s ease;
+            box-sizing: border-box;
+            will-change: opacity;
+            transition: opacity 0.8s ease;
         }
 
-        /* الجزء الأول: مقدمة الرواية (الظلام) */
         #intro-story {
             font-size: 1.5rem;
             line-height: 1.8;
             max-width: 800px;
             margin-bottom: 30px;
-            font-family: 'Amiri', serif; /* خط كلاسيكي للرواية */
+            font-family: 'Amiri', serif;
             opacity: 0;
-            animation: fadeIn 0.9s forwards;
-            animation-delay: 0.2s;
+            /* ✅ تقليل مدة الـ animation */
+            animation: fadeIn 1.5s forwards;
+            animation-delay: 0.3s;
         }
 
         @keyframes fadeIn {
             to { opacity: 1; }
         }
 
-        /* زر التحول */
         #transform-btn {
             padding: 15px 40px;
             font-size: 1.2rem;
@@ -68,32 +67,33 @@
             cursor: pointer;
             border-radius: 50px;
             font-family: 'Cairo', sans-serif;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            /* ✅ تحسين اللمس على الجوال */
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        #transform-btn:hover {
+        #transform-btn:hover,
+        #transform-btn:active {
             background-color: var(--accent);
             color: var(--bg-dark);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
         }
 
-        /* الجزء الثاني: المحتوى الكامل (الرواية + القصيدة) */
         #full-content {
-            display: none; /* مخفي في البداية */
+            display: none;
             opacity: 0;
-            content-visibility: auto;
-            contain-intrinsic-size: 1px 2000px;
             width: 100%;
             max-width: 900px;
             box-sizing: border-box;
             margin: 0 auto;
             padding: 50px 20px;
-            text-align: right; /* تنسيق القراءة */
-            transition: opacity 0.4s ease;
+            text-align: right;
+            will-change: opacity;
+            transition: opacity 1.5s ease;
         }
 
-        /* تنسيق الرواية الكاملة */
         .novel-section {
             font-family: 'Amiri', serif;
             font-size: 1.3rem;
@@ -111,7 +111,6 @@
             margin-bottom: 30px;
         }
 
-        /* تنسيق القصيدة */
         .poem-section {
             text-align: center;
             font-family: 'Amiri', serif;
@@ -135,57 +134,44 @@
 
         .shatr-awal {
             margin-left: 20px;
-            position: relative;
         }
 
-        .shatr-thani {
-            position: relative;
-        }
-
-        /* تأثيرات التحول */
-        .light-mode {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
-
-        .light-mode .novel-section,
-        .light-mode .poem-section,
-        .light-mode #intro-story,
-        .light-mode .shatr-awal,
-        .light-mode .shatr-thani {
-            color: var(--text-light);
-        }
-
-        .light-mode .novel-section {
-            border-bottom: 1px solid rgba(255,255,255,0.18);
-        }
-
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation: none !important;
-                transition: none !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
-        /* تنسيق الهواتف */
         @media (max-width: 600px) {
             #main-container {
                 padding: 16px;
-                box-sizing: border-box;
             }
-            #intro-story { font-size: 1.2rem; }
+            #intro-story {
+                font-size: 1.15rem;
+                line-height: 1.9;
+            }
             #transform-btn {
                 width: min(100%, 320px);
                 padding: 14px 24px;
+                font-size: 1.1rem;
             }
             #full-content {
                 padding: 32px 16px;
             }
-            .novel-section { font-size: 1.1rem; }
-            .poem-section { font-size: 1.2rem; }
-            .shatr-awal, .shatr-thani { margin: 5px 0; width: 100%; text-align: center; }
+            .novel-section {
+                font-size: 1.05rem;
+                line-height: 1.9;
+            }
+            .poem-section {
+                font-size: 1.1rem;
+            }
+            .poem-line {
+                flex-direction: column;
+                align-items: center;
+            }
+            .shatr-awal {
+                margin-left: 0;
+                margin-bottom: 4px;
+            }
+            .shatr-awal,
+            .shatr-thani {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -193,11 +179,11 @@
 
     <div id="main-container">
         <div id="intro-story">
-            كانت الأيامُ تمرُّ ثقيلةً، كأنها جبالٌ من الرصاصِ تُطبِقُ على صدري. تعبتُ من الركضِ خلفَ لقمةِ العيش، ونشفَ ريقي من سُمومِ التشاهيق، وغفت عيوني في تماهيقِ الهمِّ..
+            كانت الأيامُ تمرُّ ثقيلةً، كأنها جبالٌ من الرصاصِ تُطبِقُ على صدري. تعبتُ من الركضِ خلفَ لقمةِ العيش، ونشفَ ريقي من سُمومِ التشاهيق، وغفت عيوني في تماهيقِ الهمِّ..
             <br>
             حتى ظننتُ أن لا ضياءَ بعدَ هذا الظلام.
         </div>
-        <button id="transform-btn" type="button" onclick="transformPage()">ابحث عن الضياء</button>
+        <button id="transform-btn" onclick="transformPage()">ابحث عن الضياء</button>
     </div>
 
     <div id="full-content">
@@ -205,173 +191,72 @@
         <div class="novel-section">
             <h2>رواية: رفيقة الدرب</h2>
             <p>
-                وفي لحظةِ انكسارٍ، حينما كادتِ الهقاوي في الخلائقِ تخيب، شعرتُ بلمسةِ يدٍ حانية، وبسمةٍ تجلا عن القلبِ كلَّ تضييق. لم تكن مجردَ زوجة، بل كانتِ الدوا، والعون، وأقربَ قريب.
+                وفي لحظةِ انكسارٍ، حينما كادتِ الهقاوي في الخلائقِ تخيب، شعرتُ بلمسةِ يدٍ حانية، وبسمةٍ تجلا عن القلبِ كلَّ تضييق. لم تكن مجردَ زوجة، بل كانتِ الدوا، والعون، وأقربَ قريب.
             </p>
             <p>
-                صبرتِ على تعبي، وسهرت عيونكِ لو غفت عيوني في تواهيقِ التعب، وأركيتي كتفكِ لثقلِ نصيبي. يا من غديتي لي عمراً، وشمساً لصبحي، ومساءً مهيباً يحميني من شرِّ الزمانِ الصعيب. هذه حكايتنا، وهذا عهدُ الوفاءِ الذي لن أكسرهُ ما حييت.
+                صبرتِ على تعبي، وسهرت عيونكِ لو غفت عيوني في تواهيقِ التعب، وأركيتي كتفكِ لثقلِ نصيبي. يا من غديتي لي عمراً، وشمساً لصبحي، ومساءً مهيباً يحميني من شرِّ الزمانِ الصعيب. هذه حكايتنا، وهذا عهدُ الوفاءِ الذي لن أكسرهُ ما حييت.
             </p>
         </div>
 
         <div class="poem-section">
             <h2>القصيدة الكاملة</h2>
 
-            <div class="poem-line">
-                <span class="shatr-awal">يا روح روحي يا ملاذي عن الضيق</span>
-                <span class="shatr-thani">يا للي بـحـنانك كـل جـرحٍ يـطـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تعبت بالدنيا، ونشف لـها الـريق</span>
-                <span class="shatr-thani">ولـقـيـتـك أنـتي بـشـدايـد نـصـيبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">يوم الـتـعـب زاد وحـمـولـه مـواثـيـق</span>
-                <span class="shatr-thani">كـنـتي الـدوا، والـعـون، وأقرب قريبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـسـهـر عـيونك لو غفت بي تـواهـيق</span>
-                <span class="shatr-thani">وتـرتاح نـفسي من عـطـاك الـرحيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">بـيـض الله وجـهـك بـكـل الـتـوافـيق</span>
-                <span class="shatr-thani">يا شـمـس صبحي، يا مـسـاي الـمـهـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">مـا تـوفـيـك الأبـيـات لـو هـي طـواريـق</span>
-                <span class="shatr-thani">أنـتي الـجـمـيـيل الـلي بـقـلـبي مـسـيبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">كـنـت أحـسـب إن الـحـمل مـا بـه تـفـاريـق</span>
-                <span class="shatr-thani">لـيـن اركـيـتـي كـتـفـك لـثـقـل نـصـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">وقـفـتـي وقـفـة هـل الـجـود والـضـيـق</span>
-                <span class="shatr-thani">يـوم الـهـقـاوي فـي الـخـلايـق تـخـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">كـم جـيـت مـرهـق مـن سـمـوم الـتـشاهيق</span>
-                <span class="shatr-thani">ولـقـيـت فـي صـدرك بـرادٍ طـبـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـغـيـب شـمـس، وتـنـجـلي كـل تـعـويـق</span>
-                <span class="shatr-thani">مـا دام وجـهـك يـا غـلاتـي رقـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">يـا بـسـمـةٍ تـجـلا عـن الـقـلـب تـضـيـيق</span>
-                <span class="shatr-thani">أنـتِ الـذخـر فـي الـحـاضـر وفـي الـمـغـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">عـسـى الـسـعـادة فـي حـيـاتـك تـوافـيـق</span>
-                <span class="shatr-thani">ويـجـزاك ربـي عـن جـهـادك نـصـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">ولـو كـتـبـت بـحـروف شـعـري تـسـابـيـق</span>
-                <span class="shatr-thani">مـا جـبـت ربع اللي بـقـلـبي غـريـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـسـهـالـين الـمـدح مـن دون تـلفـيـق</span>
-                <span class="shatr-thani">يـا طـهـر غـيـمٍ فـي سـمـاي الـخصـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">كـلـمـة "شـكـر" فـي حـقـكـم ذرة ريـق</span>
-                <span class="shatr-thani">قـدام بـحـرٍ مـن وفـاك الـعـجـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">صـبـرك عـلـى تـعـبي وذيك الـتـشاهيق</span>
-                <span class="shatr-thani">خـلاك فـي عـيـني (مـلاكٍ أديبـي)</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">يـا جـعـل بـيـتٍ ضـمـنـا لـه تـشـاهـيـق</span>
-                <span class="shatr-thani">بـالـسـتـر والـطـاعـة وحـظٍ حـبـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">ويـجـبـر إلـه الـعرش كـل الـتـفـاريـق</span>
-                <span class="shatr-thani">ونـبـقـى سـوى، يـا فـرحـتـي وتـعـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">عـسـى لـيـالـيـنـا بـسـعـدٍ وطـواريـق</span>
-                <span class="shatr-thani">تـضـحـك لـنـا، والـغـيـم يـبـرا لـنـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">ويـا جـعـل ربٍ جـمّـلـك بـالـتـخـالـيـق</span>
-                <span class="shatr-thani">يـحـمـيـك مـن شـر الـزمـان الـصـعـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">لـو كـان لـي مـطـلـب ولا فـيـه تـعـويـق</span>
-                <span class="shatr-thani">"مـتـعـكِ بـالـصـحـة" ودربـك رحـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـبـقـيـن شـمـعـة لـلأمـل، لـلـتـواثـيـق</span>
-                <span class="shatr-thani">ونـور الـعـمـر لـو كـان وجـهـي شـحـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">خـلـصـت قـافـي، والـوفـا لـه مـسـابـيـق</span>
-                <span class="shatr-thani">لـك يـا بـعـد كـل الـبـشـر والـمـغـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">عـهـدٍ عـلـيـه بـالـنـقـا والـمـواثـيـق</span>
-                <span class="shatr-thani">مـا أنـسى جـمـيـلك يـا مـنـارة مـغـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">كـلـما ذكـرتـك والـفـضـا فـيه تـضـيـيـق</span>
-                <span class="shatr-thani">كـنّ الـفـرج لـلـقـلـب جـا بـه نـحـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">يا درّةٍ تـسـكـن بـوسـط الـصـناديـق</span>
-                <span class="shatr-thani">حـفـظـك حـفـظ الـنـور لـعـيـونـي طـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">كـل الـبـشـر فـي عـيـني أغـراب وتـلـيـق</span>
-                <span class="shatr-thani">بـكِ الـمـعـزة.. يـا شـفـا كـل عـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">الـحمد لـلـه جـابـك لـقـلـبي تـوفـيـق</span>
-                <span class="shatr-thani">يا أعـظم مـكـاسـب عـمـري الـعـصـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـمّـت بـذكر الله ورب الـمـخـالـيـق</span>
-                <span class="shatr-thani">يـحـمـيـك مـن كـل الـعـنـا والـنـحـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">سـسلام يا صـرح الـوفـا والـتـواثـيـق</span>
-                <span class="shatr-thani">يا من غـديـتـي لـي عـمـر واحـتـيـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">تـمّـت بـذكر الله.. وبـالـتـوافـيـق</span>
-                <span class="shatr-thani">أصـون عـهـدك مـا حـيـيت ومـشـيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">ويـا جـعـل ربي يـجـعـل الـهـم تـفـريـج</span>
-                <span class="shatr-thani">ويـجـعل سـعـادك فـي حـيـاتـك نـصيـبي</span>
-            </div>
-            <div class="poem-line">
-                <span class="shatr-awal">خـذي عـهـد مـن صـادقـات الـمـواثـيـق</span>
-                <span class="shatr-thani">أنـك بـقـلـبي.. والـظـنـون مـا تـخـيـبي</span>
-            </div>
-            
+            <div class="poem-line"><span class="shatr-awal">يا روح روحي يا ملاذي عن الضيق</span><span class="shatr-thani">يا للي بـحـنانك كـل جـرحٍ يـطـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تعبت بالدنيا، ونشف لـها الـريق</span><span class="shatr-thani">ولـقـيـتـك أنـتي بـشـدايـد نـصـيبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">يوم الـتـعـب زاد وحـمـولـه مـواثـيـق</span><span class="shatr-thani">كـنـتي الـدوا، والـعـون، وأقرب قريبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـسـهـر عـيونك لو غفت بي تـواهـيق</span><span class="shatr-thani">وتـرتاح نـفسي من عـطـاك الـرحيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">بـيـض الله وجـهـك بـكـل الـتـوافـيق</span><span class="shatr-thani">يا شـمـس صبحي، يا مـسـاي الـمـهـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">مـا تـوفـيـك الأبـيـات لـو هـي طـواريـق</span><span class="shatr-thani">أنـتي الـجـمـيـيل الـلي بـقـلـبي مـسـيبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">كـنـت أحـسـب إن الـحـمل مـا بـه تـفـاريـق</span><span class="shatr-thani">لـيـن اركـيـتـي كـتـفـك لـثـقـل نـصـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">وقـفـتـي وقـفـة هـل الـجـود والـضـيـق</span><span class="shatr-thani">يـوم الـهـقـاوي فـي الـخـلايـق تـخـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">كـم جـيـت مـرهـق مـن سـمـوم الـتـشاهيق</span><span class="shatr-thani">ولـقـيـت فـي صـدرك بـرادٍ طـبـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـغـيـب شـمـس، وتـنـجـلي كـل تـعـويـق</span><span class="shatr-thani">مـا دام وجـهـك يـا غـلاتـي رقـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">يـا بـسـمـةٍ تـجـلا عـن الـقـلـب تـضـيـيق</span><span class="shatr-thani">أنـتِ الـذخـر فـي الـحـاضـر وفـي الـمـغـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">عـسـى الـسـعـادة فـي حـيـاتـك تـوافـيـق</span><span class="shatr-thani">ويـجـزاك ربـي عـن جـهـادك نـصـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">ولـو كـتـبـت بـحـروف شـعـري تـسـابـيـق</span><span class="shatr-thani">مـا جـبـت ربع اللي بـقـلـبي غـريـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـسـهالين الـمـدح مـن دون تـلفـيـق</span><span class="shatr-thani">يـا طـهـر غـيـمٍ فـي سـمـاي الـخصـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">كـلـمـة "شـكـر" فـي حـقـكـم ذرة ريـق</span><span class="shatr-thani">قـدام بـحـرٍ مـن وفـاك الـعـجـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">صـبـرك عـلـى تـعـبي وذيك الـتـشاهيق</span><span class="shatr-thani">خـلاك فـي عـيـني (مـلاكٍ أديبـي)</span></div>
+            <div class="poem-line"><span class="shatr-awal">يـا جـعـل بـيـتٍ ضـمـنـا لـه تـشـاهـيـق</span><span class="shatr-thani">بـالـسـتـر والـطـاعـة وحـظٍ حـبـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">ويـجـبـر إلـه الـعرش كـل الـتـفـاريـق</span><span class="shatr-thani">ونـبـقـى سـوى، يـا فـرحـتـي وتـعـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">عـسـى لـيـالـيـنـا بـسـعـدٍ وطـواريـق</span><span class="shatr-thani">تـضـحـك لـنـا، والـغـيـم يـبـرا لـنـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">ويـا جـعـل ربٍ جـمّـلـك بـالـتـخـالـيـق</span><span class="shatr-thani">يـحـمـيـك مـن شـر الـزمـان الـصـعـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">لـو كـان لـي مـطـلـب ولا فـيـه تـعـويـق</span><span class="shatr-thani">"مـتـعـكِ بـالـصـحـة" ودربـك رحـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـبـقـيـن شـمـعـة لـلأمـل، لـلـتـواثـيـق</span><span class="shatr-thani">ونـور الـعـمـر لـو كـان وجـهـي شـحـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">خـلـصـت قـافـي، والـوفـا لـه مـسـابـيـق</span><span class="shatr-thani">لـك يـا بـعـد كـل الـبـشـر والـمـغـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">عـهـدٍ عـلـيـه بـالـنـقـا والـمـواثـيـق</span><span class="shatr-thani">مـا أنـسى جـمـيـلك يـا مـنـارة مـغـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">كـلـما ذكـرتـك والـفـضـا فـيه تـضـيـيـق</span><span class="shatr-thani">كـنّ الـفـرج لـلـقـلـب جـا بـه نـحـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">يا درّةٍ تـسـكـن بـوسـط الـصـناديـق</span><span class="shatr-thani">حـفـظـك حـفـظ الـنـور لـعـيـونـي طـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">كـل الـبـشـر فـي عـيـني أغـراب وتـلـيـق</span><span class="shatr-thani">بـكِ الـمـعـزة.. يـا شـفـا كـل عـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">الـحمد لـلـه جـابـك لـقـلـبي تـوفـيـق</span><span class="shatr-thani">يا أعـظم مـكـاسـب عـمـري الـعـصـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـمّـت بـذكر الله ورب الـمـخـالـيـق</span><span class="shatr-thani">يـحـمـيـك مـن كـل الـعـنـا والـنـحـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">سـسلام يا صـرح الـوفـا والـتـواثـيـق</span><span class="shatr-thani">يا من غـديـتـي لـي عـمـر واحـتـيـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">تـمّـت بـذكر الله.. وبـالـتـوافـيـق</span><span class="shatr-thani">أصـون عـهـدك مـا حـيـيت ومـشـيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">ويـا جـعـل ربي يـجـعـل الـهـم تـفـريـج</span><span class="shatr-thani">ويـجـعل سـعـادك فـي حـيـاتـك نـصيـبي</span></div>
+            <div class="poem-line"><span class="shatr-awal">خـذي عـهـد مـن صـادقـات الـمـواثـيـق</span><span class="shatr-thani">أنـك بـقـلـبي.. والـظـنـون مـا تـخـيـبي</span></div>
         </div>
     </div>
 
     <script>
         function transformPage() {
-            // 1. إخفاء حاوية البداية (الظلام)
-            const main = document.getElementById('main-container');
-            const body = document.getElementById('body-tag');
-            const fullContent = document.getElementById('full-content');
-            main.style.opacity = '0';
+            var container = document.getElementById('main-container');
+            container.style.opacity = '0';
             
-            requestAnimationFrame(function() {
-                main.style.display = 'none';
-
-                // 2. إبقاء الخلفية الداكنة وتغيير لون النص فقط
-                body.classList.add('light-mode');
-
-                // 3. إظهار المحتوى الكامل بسلاسة
+            setTimeout(function() {
+                container.style.display = 'none';
+                
+                var fullContent = document.getElementById('full-content');
                 fullContent.style.display = 'block';
+
+                // requestAnimationFrame يضمن بدء الـ transition بشكل صحيح
                 requestAnimationFrame(function() {
-                    fullContent.style.opacity = '1';
-                    document.body.style.overflowY = 'auto';
+                    requestAnimationFrame(function() {
+                        fullContent.style.opacity = '1';
+                        document.body.style.overflowY = 'auto';
+                    });
                 });
-            });
+                
+            }, 800);
         }
     </script>
 </body>
